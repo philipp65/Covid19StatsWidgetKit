@@ -27,8 +27,12 @@ class Covid19APIService: Covid19RepositoryService  {
     private let baseAPIURL = "https://api.covid19api.com"
     private let urlSession = URLSession.shared
     private let jsonDecoder: JSONDecoder = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         return decoder
     }()
         
